@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <!--一个插件写法的小例子-->
+    <div id="article-content"></div>
+    <script src="../common/jquery-3.0.0.min.js"></script>
+    <script>
+        (function ($) {
+            /*$.fn.extend({
+                userCp : function(options) { //定义插件的名称，这里为userCp
+                    var dft = {
+                        //以下为该插件的属性及其默认值
+                        cpBy: "dafi", //版权所有者
+                        url: "http://www.dafi.cn", //所有者链接
+                        size: "12px", //版权文字大小
+                        align: "center" //版权文字位置，left || center || right
+                    };
+                    var ops = $.extend(dft, options);
+                    var style = 'style="font-size:' + ops.size + ';text-align:' + ops.align + ';"'; //调用默认的样式
+                    var cpTxt = '<p' + ' ' + style + '>此文章版权归<a target="_blank" href="' + ops.url + '">' + ops.cpBy + '</a>所有</p>'; //生成版权文字的代码
+                    $(this).append(cpTxt); //把版权文字加入到想显示的div
+                }
+            })*/
+            $.fn.userCp = function(options) { //定义插件的名称，这里为userCp
+                var dft = {
+                    //以下为该插件的属性及其默认值
+                    cpBy: "dafi", //版权所有者
+                    url: "http://www.dafi.cn", //所有者链接
+                    size: "12px", //版权文字大小
+                    align: "left" //版权文字位置，left || center || right
+                };
+                var ops = $.extend(dft,options);
+                var style = 'style="font-size:' + ops.size + ';text-align:' + ops.align + ';"'; //调用默认的样式
+                var cpTxt = '<p' + ' ' + style + '>此文章版权归<a target="_blank" href="' + ops.url + '">' + ops.cpBy + '</a>所有</p>'; //生成版权文字的代码
+                $(this).append(cpTxt); //把版权文字加入到想显示的div
+            }
+        })(jQuery);
+        $("#article-content").userCp({
+            align: 'left',
+            size : '20px'
+        });
+    </script>
+</body>
+</html>
