@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>懒加载</title>
+    <style>
+        img{width:100%;margin-bottom: 30px; min-height: 400px; background-color: #ddd;}
+    </style>
+</head>
+<body>
+    <img data-url="2.jpg" src="img/2.jpg" >
+    <img data-url="4.jpg" src="img/4.jpg" >
+    <img data-url="5.jpg" src="" >
+    <img data-url="1.jpg" src="" >
+    <img data-url="2.jpg" src="" >
+    <img data-url="3.jpg" src="" >
+    <img data-url="4.jpg" src="" >
+    <img data-url="5.jpg" src="" >
+    <img data-url="6.jpg" src="" >
+    <img data-url="7.jpg" src="" >
+    <!--<script>
+//        第一种
+        var imgNum=document.getElementsByTagName('img').length;
+        var imgObj=document.getElementsByTagName("img");
+        var l=2;
+
+        window.onscroll=function(){
+            var seeHeight = document.documentElement.clientHeight;
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            for(var i=l;i<imgNum;i++){
+                if(imgObj[i].offsetTop < seeHeight + scrollTop){
+                    console.log(imgObj[i].getAttribute("src"));
+                    console.log(imgObj[i].src );
+                    if(imgObj[i].getAttribute("src") == ""){
+                        imgObj[i].src = 'img/'+imgObj[i].getAttribute("data-url");
+                    }
+                }
+                if(imgObj[i].offsetTop > seeHeight + scrollTop){
+                    l=i;
+                    break;
+                }
+            }
+        }
+
+    </script>-->
+    <script src="../common/jquery-3.0.0.min.js"></script>
+    <!--<script>
+//        第二种方法
+        var l=2
+        //js方法翻译版
+        $(window).bind("scroll", function(event){
+
+            for(var i=l;i<$("img").length;i++){
+                if($("img").eq(i).offset().top < parseInt($(window).height()) + parseInt($(window).scrollTop())){
+                    if($("img").eq(i).attr("src") == ""){
+                        var lazyloadsrc=$('img').eq(i).attr("data-url");
+                        $("img").eq(i).attr("src",'img/'+lazyloadsrc);
+                    }
+                }
+                if($("img").eq(i).offset().top > parseInt($(window).height()) + parseInt($(window).scrollTop())){
+                    l=i;
+                    break;
+                }
+            }
+
+        });
+    </script>-->
+<script>
+    $(window).bind("scroll", function(event){
+
+        //窗口的高度+看不见的顶部的高度=屏幕低部距离最顶部的高度
+        var thisButtomTop = parseInt($(window).height()) + parseInt($(window).scrollTop());
+        var thisTop = parseInt($(window).scrollTop()); //屏幕顶部距离最顶部的高度
+        var l=2;
+            // $("#你的要滚动加载的ID").attr("src", $("#你的要滚动加载的ID").attr("data-url"));
+
+            //此处可以执行你的加载函数，加载函数由原来的document.ready中，移到这里来！
+            for(var i=l;i<$("img").length;i++){
+                var PictureTop = parseInt($('img').eq(i).offset().top);
+                if (PictureTop >= thisTop && PictureTop <= thisButtomTop) {
+                    if($("img").eq(i).attr("src") == ""){
+                        var lazyloadsrc=$('img').eq(i).attr("data-url");
+                        $("img").eq(i).attr("src",'img/'+lazyloadsrc);
+                    }
+                }
+                if($("img").eq(i).offset().top > thisButtomTop){
+                    l=i;
+                    break;
+                }
+            }
+
+
+
+    })
+</script>
+</body>
+</html>
