@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>换一换</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <style type="text/css">
+        html{box-sizing:border-box};
+        *,*:before,*:after{box-sizing: inherit};
+        body{padding:20px;}
+        span{position: relative;display: inline-block;}
+        span:hover{cursor: pointer;}
+        span:hover:before{content:attr(data-tooltip);background: #FF7F50;color:#fff;padding:.8em 1em;position: absolute;top:-70%;left:100%;margin-left: 14px;white-space:pre;}
+        span:hover:after{content:"";position:absolute;left:108%;width:0;height: 0;border-right:8px solid #FF7F50;border-top:8px solid transparent;border-bottom:8px solid transparent;}
+    </style>
+</head>
+<body>
+<div>
+    <span data-tooltip="hello world">Hover Me!!!</span>
+</div>
+<!--<script type="text/javascript" src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>-->
+<script type="text/javascript">
+
+</script>
+</body>
+</html>
