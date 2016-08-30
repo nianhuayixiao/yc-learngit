@@ -15,12 +15,15 @@
         span:hover{cursor: pointer;}
         span:hover:before{content:attr(data-tooltip);background: #FF7F50;color:#fff;padding:.8em 1em;position: absolute;top:-70%;left:100%;margin-left: 14px;white-space:pre;}
         span:hover:after{content:"";position:absolute;left:108%;width:0;height: 0;border-right:8px solid #FF7F50;border-top:8px solid transparent;border-bottom:8px solid transparent;}
+        .blur {color: transparent;text-shadow: 0 0 5px rgba(0,0,0,0.5);}
+
     </style>
 </head>
 <body>
 <div>
     <span data-tooltip="hello world">Hover Me!!!</span>
 </div>
+<p class="blur">先定一个小的目标:天天可以去旅游</p>
 <!--<script type="text/javascript" src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>-->
 <script type="text/javascript">
 
