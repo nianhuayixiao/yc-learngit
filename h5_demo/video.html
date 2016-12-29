@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="mainContent">
+			<div id="left">
+				<p id="videotitle">云计算-未来精彩生活</p>
+				<video id="myVideo" controls autoplay>
+					<source src="http://7xvmbf.com1.z0.glb.clouddn.com/tt.mp4" type="video/mp4"/>
+				</video>
+			</div>
+			<div id="right">
+				<section>
+					<img src="../img/dataview02.jpg" width="100px"/>
+					<div>
+						<header>
+							<a href="javascript:;" dir="tt.mp4"> 云计算-未来精彩生活</a>
+						</header>
+						<p>邹明</p>
+						<p id="dj1">点击量：1000</p>
+					</div>
+				</section>
+				<section>
+					<img src="../img/dataview03.jpg" width="100px"/>
+					<div>
+						<header>
+							<a href="javascript:;" dir="starbucks.mp4">悠悠网校宣传片</a>
+						</header>
+						<p>邹明</p>
+						<P id="dj2">点击量：10000</P>
+					</div>
+				</section>
+			</div>
+		</div>
+		<script src="../bower_components/jquery/jquery.min.js"></script>
+		<script>
+			$(function () {
+//				获取video对象
+				var video = document.getElementById('myVideo');
+//				获取source对象
+				var source = document.getElementsByTagName('source');
+//				绑定a标签点击事件
+				$('#right a').click(function () {
+//					获取a标签的dir属性，dir属性记录了视频的名字
+					var name = $(this).attr('dir');
+					var vediotile = $(this).html();
+//					修改视频源
+					source[0].src = 'video/'+name;
+					$('#videotitle').html(vediotile);
+//					重新加载视频
+					video.load();
+				})
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>字符制作三角边框</title>
+    <style type="text/css">
+        *{margin:0;padding:0;}
+        body{font-family:SimSun;}
+        h1{text-align:center;}
+        .demo1{width:300px;margin:20px auto;border:1px solid red;height:100px;}
+        .demo1 em,.demo1 span{display:block;width:30px;height:16px;font-size:30px;overflow:hidden;_position:relative;margin-left:10px;}
+        .demo1 em{margin-top:-16px;color:red;font-style:normal;}
+        .demo1 span{margin-top:-14px;color:white;}
+
+        .demo2{width:300px;border:1px solid #F00;height:100px;position:relative;margin-left:auto;margin-right:auto;}
+        .demo2 em,.demo2 span{font-style:normal;font-size:30px;position:absolute;left:-16px;top:40px;color:red;}
+        .demo2 span{left:-14px;color:white;}
+    </style>
+</head>
+<body>
+<h1>demo1 是用 margin 方法</h1>
+<div class="demo1">
+    <em>&#9670;</em>
+    <span>&#9670;</span>
+</div>
+<h1>demo2 是用 position 方法</h1>
+<div class="demo2">
+    <em>&#9670;</em>
+    <span>&#9670;</span>
+</div>
+</body>
+</html>

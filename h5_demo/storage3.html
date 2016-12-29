@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            font-size: 14px;
+        }
+        fieldset legend {
+            font-family: '隶书';
+            font-size:22px;
+        }
+        #userInfo li{
+            list-style: none;
+            height: 30px;
+            padding-top:5px;
+        }
+        #userInfo li input{
+            height: 20px;
+        }
+        #userInfo li input[type='button']{
+            magin-left: 50px;
+            width:100px;
+        }
+        table{
+            width:400px;
+            border:1px solid #999;
+        }
+        table tr{
+            height: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <fieldset>
+        <legend>新增用户</legend>
+        <ul id="userInfo">
+            <li>
+                <span>姓名：</span>
+                <input type="text" name="name" id="name"/>
+            </li>
+            <li>
+                <span>年龄：</span>
+                <input type="text" name="age" id="age"/>
+            </li>
+            <li>
+                <span>电话：</span>
+                <input type="text" name="phone" id="phone"/>
+            </li>
+            <li>
+                <span></span>
+                <input type="button" value="添加" onClick='addUser()'/>
+                <input type="button" value="清空" onClick="deleteData()"/>
+            </li>
+        </ul>
+    </fieldset>
+    <p>用户列表</p>
+    <table id="userTable" border="1" cellpadding="0" cellspacing="0">
+        <tr>
+            <th width="200">姓名</th>
+            <th width="50">年龄</th>
+            <th width="150">电话</th>
+        </tr>
+    </table>
+    <script src="../bower_components/jquery/jquery.min.js"></script>
+    <script>
+        var db = openDatabase('mydb','1.0','user info',2*1024*1024);
+//        创建表
+        function createTable(){
+            db.transaction(function(tx){
+                tx.executeSql('create table if not exists users (id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,age TEXT,phone TEXT)');
+            });
+        }
+//        添加用户
+        function addUser(){
+            var name = $('#name').val();
+            var age = $('#age').val();
+            var phone = $('#phone').val();
+            if($.trim(name).length == 0 || $.trim(age).length == 0 || $.trim(phone).length == 0 ){
+                alert('请输入内容！');
+                return;
+            }
+            db.transaction(function(tx){
+                tx.executeSql('insert into users(name,age,phone) values (?,?,?)',[name,age,phone],function(tx,rs){
+                    var str = '<tr><td>'+name+'</td><td>'+age+'</td><td>'+phone+'</td></tr>';
+                    $('#userTable').append(str);
+                },function(tx,error){
+                    alert(error.source+'=='+error.message);
+                })
+            })
+        }
+//        清空表数据
+        function deleteData(){
+            db.transaction(function(tx){
+                tx.executeSql('delete from users',[],function(tx,rs){
+                    console.log('数据清空');
+                    location.reload();
+                },function(tx,error){
+                    alert(error.source+'=='+error.message);
+                })
+            })
+        }
+//        显示用户列表
+        /*function showUsers(name){
+            db.transaction(function(tx){
+                tx.executeSql('select*from users',[],function(tx,rs){
+//                    取出数据库中用户数量
+                    var len = rs.rows.length;
+                    for(var i=0;i<len;i++){
+                        var u = rs.rows.item(i);
+                        var name = u.name;
+                        var age = u.age;
+                        var phone= u.phone;
+                        var str = '<tr><td>'+name+'</td><td>'+age+'</td><td>'+phone+'</td></tr>';
+                        $('#userTable').append(str);
+                    }
+                },function(tx,error){
+                    alert(error.source+'=='+error.message);
+                })
+            })
+        }*/
+        createTable();
+//        deleteData();
+    </script>
+</body>
+</html>

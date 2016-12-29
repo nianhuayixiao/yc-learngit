@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../../../bower_components/angular-1.5.8/angular.min.js"></script>
+    <script src="../../../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+</head>
+<body>
+<body ng-app="myApp">
+<h1>多ui-view</h1>
+<div ui-view></div>
+<div ui-view="chart"></div>
+<div ui-view="data"></div>
+<script>
+    angular.module('myApp',['ui.router'])
+            .config(function ($stateProvider,$urlStateProvider) {
+                $urlStateProvider.when('','/home');
+                $stateProvider.state('home',{
+                    url:'/home',
+                    views: {
+                        "": {
+                            template: "<h1>HELLO!</h1>"
+                        },
+                        "chart": {
+                            template: "chart"
+                        },
+                        "data": {
+                            template: "data"
+                        }
+                    }
+                })
+                .state("index", {
+                    url: "/index",
+                    views: {
+                        "": {
+                            template: "<h1>HELLO!</h1>"
+                        },
+                        "data": {
+                            template: "data-index"
+                        }
+                    }
+                })
+            })
+</script>
+</body>
+</body>
+</html>

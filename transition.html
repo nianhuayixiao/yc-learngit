@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>加载页面的时候，使用transition动画</title>
+    <style>
+        h3  {opacity: 0;margin:100px;transform: translate(0, -15px)}
+        .cc{opacity: 1;transform: translate(0, 0)}
+        h3.cc{transition: all 0.5s ease-out}
+    </style>
+</head>
+<body>
+    <h3>hello world!</h3>
+    <script>
+        window.onload = function () {
+            var cc = document.getElementsByTagName('h3')[0];
+            cc.setAttribute('class','cc');
+        }
+    </script>
+</body>
+</html>

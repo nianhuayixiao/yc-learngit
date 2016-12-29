@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>随机生成验证码</title>
+</head>
+<body>
+<p>验证码：</p>
+<div id="login" onclick="show()">
+    <a href="#"></a>
+</div>
+<script>
+    function code(n){
+        var a = "qazwsxedcrfvtgbyhnujmikolpQAZWSXEDCRFVTGBYHNUJMIKOLP1324567890";
+        var b = "";
+        for(var i= 0;i<n;i++){
+            var index = Math.floor(Math.random()*62);
+            b+= a.charAt(index);
+        }
+        return b;
+    }
+    function show(){
+        document.getElementById("login").innerHTML = code(4)
+    }
+    window.onload=show;
+</script>
+</body>
+</html>

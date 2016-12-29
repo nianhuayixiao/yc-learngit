@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>一个下拉框写插件的例子</title>
+    <style>
+        *{margin:0;padding:0;}
+        .dropdown {
+            position: relative;
+        }
+        .dropdown .dropdown-menu {
+            background: #fff;
+            border: 1px solid #ccc;
+            -webkit-box-shadow: 0 0 2px #ccc;
+            -moz-box-shadow: 0 0 2px #ccc;
+            box-shadow: 0 0 2px #ccc;
+            position: absolute;
+            left: 0;
+            top: 100%;
+            z-index: 99;
+            display: none;
+            width: 100%;
+        }
+        .dropdown.open .dropdown-menu {
+            display: block;
+        }
+        .diy-select{
+            width:100px;
+        }
+        .diy-select,
+        .diy-select-level  {
+            box-sizing: border-box;
+            display: inline-block;
+            height: 30px;
+            line-height: 30px;
+            margin-bottom: -10px;
+            border-radius: 2px;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+        }
+        .diy-select  {
+            border: 1px solid #ccc;
+            background-color: #fff;
+            /*font-size: 12px;*/
+            font-size: inherit;
+        }
+        .diy-select-level  {
+            width: 70px;
+        }
+        .diy-select:hover,
+        .diy-select.open  {
+            background-color: #f3f3f3;
+        }
+        .diy-select .dropdown-toggle,
+        .diy-select-level .dropdown-toggle  {
+            position: relative;
+            padding: 0 5px;
+        }
+        .diy-select .dropdown-toggle span,
+        .diy-select-level .dropdown-toggle span  {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 100%;
+        }
+        .diy-select .dropdown-menu,
+        .diy-select-level .dropdown-menu  {
+            box-shadow: none;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            max-height: 122px;
+            overflow-y: auto;
+        }
+        .diy-select .dropdown-menu  {
+            left: -1px;
+        }
+        .diy-select-level .dropdown-menu  {
+            box-sizing: border-box;
+        }
+        .diy-select .dropdown-menu li > a,
+        .diy-select-level .dropdown-menu li > a  {
+            display: block;
+            padding-left: 15px;
+            color: inherit;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-align: left;
+        }
+        .diy-select-level .dropdown-menu li a  {
+            padding-left: 0px;
+            text-align: center;
+        }
+        .diy-select .dropdown-menu li.active a,
+        .diy-select .dropdown-menu li a:hover  {
+            background-color: #f3f3f3;
+        }
+        .dropdown-toggle .select-i  {
+            position:absolute;
+            right: 5px;
+            width: 8px;
+            height: 5px;
+            margin-top: 12px;
+            background: url("/img/select-i.png") no-repeat;
+        }
+        .dropdown.open .dropdown-menu{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div class="dropdown diy-select">
+    <div class="dropdown-toggle clearfix">
+        <span class="fl ng-binding">小时</span>
+        <i class="fr select-i"></i>
+    </div>
+    <ul class="dropdown-menu">
+        <li class="active"><a href="javascript:;">小时</a></li>
+        <li class=""><a href="javascript:;">日</a></li>
+        <li class=""><a href="javascript:;">月</a></li>
+    </ul>
+</div>
+<script src="bower_components/jquery/jquery.min.js"></script>
+<script>
+    ;(function(){
+        $.fn.dropdown = function(options){
+            var $this = $(this);
+            $this.find('.dropdown-toggle').live('click',function(e){
+                $('.dropdown').not($(this).parent()).removeClass('open');
+                $(this).parents('.dropdown').toggleClass("open");
+                return false;
+            });
+            $this.find('.dropdown-menu li').live('click',function(e){
+                $this.find('.dropdown-toggle span').text( $(this).find('a').text());
+                $(this).addClass('active').siblings().removeClass('active');
+                $(this).parents('.dropdown').toggleClass("open");
+            });
+            return $this;
+        };
+        $(".dropdown").dropdown();
+        $(document).click(function(){
+            $(".dropdown").removeClass("open");
+        });
+    })(jQuery);
+</script>
+</body>
+</html>

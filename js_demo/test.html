@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<form id="picker" onsubmit="return getVals()">
+			<lable>value 1:</lable>
+			<input type="text" id="first" /><br>
+			<lable>value 2:</lable>
+			<input type="text" id="second" /><br>
+			<lable>value 3:</lable>
+			<input type="text" id="third" /><br>
+			<lable>value 1:</lable>
+			<input type="text" id="four" /><br>
+			<input type="submit" value="validate"/>
+		</form>
+		<div id="result"></div>
+		<script>
+			function getVals(){
+				var elems = document.getElementById('picker').elements;
+				console.log(elems)
+				var elemArray = new Object();
+				for(var i = 0;i< elems.length;i++){
+					if(elems[i].type == 'text'){
+						console.log(elems[i])
+						elemArray[elems[i].id] = elems[i].value;
+					}
+				}
+				console.log(elemArray);
+				checkVals(elemArray);
+				return false;
+			}
+			function checkVals(elemArray){
+				var str = "";
+				for(var key in elemArray){
+					str+=key+","+elemArray[key]+" ";
+				}
+				document.getElementById('result').innerHTML = str;
+			}
+		</script>
+	</body>
+</html>

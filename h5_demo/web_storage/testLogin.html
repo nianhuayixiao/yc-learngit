@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<span></span>
+		<br/>
+		<a href="index.html">返回</a>
+		<script src="../../bower_components/jquery/jquery.min.js"></script>
+		<script>
+			$(function(){
+				$.extend({
+					IsBrowerSupport: function () {
+						if (window.sessionStorage) {
+
+						} else {
+							alert('您的浏览器不支持sessionStorage');
+						}
+					}
+				});
+				$.IsBrowerSupport();
+				var userName = window.sessionStorage.userName;
+				if (userName) {
+					$('span').text('欢英您'+userName);
+				}else{
+					$('span').text('请先登陆');
+				}
+			})
+		</script>
+
+	</body>
+</html>

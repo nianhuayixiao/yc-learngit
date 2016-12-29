@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>百度地图定位</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <style>
+        body,html,#bd_map{
+            width:100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="bd_map"></div>
+    <script src="http://api.map.baidu.com/api?v=2.0&ak=2s6dOFzTMxxqS2aqtlReLshB"></script>
+    <script>
+//        创建百度地图的定位对象
+        var geolocation = new BMap.Geolocation();
+        geolocation.getCurrentPosition(function (r) {
+//            检索成功
+            if(this.getStatus() == BMAP_STATUS_SUCCESS){
+//                获取经纬度
+                var lng = r.point.lng;
+                var lat = r.point.lat;
+                var gpsPoint = new BMap.Point(lng,lat);
+//                地图初始化
+                var bm = new BMap.Map('bd_map');
+//                设置中心点与地图显示比例
+                bm.centerAndZoom(gpsPoint,15);
+//                添加marker和label
+                var markergps = new BMap.Marker(gpsPoint);
+                bm.addOverlay(markergps);//添加GPS标注
+                var labelgps = new BMap.Label('当前位置',{
+                    offset:new BMap.size(20,-10)
+                });
+                markergps.setLabel(labelgps);//添加GPS标注
+            }else{
+                alert('failed'+this.getStatus());
+            }
+        },{
+//            使用高精度
+            enableHighAccuracy:true
+        })
+    </script>
+</body>
+</html>

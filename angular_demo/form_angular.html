@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+</head>
+<body ng-app="app" ng-controller="contr">
+<div ng-form="userForm" novalidate>
+    {{userForm.$error}}
+    <br>
+    <br>
+    {{userForm.$valid}}
+    <br>
+    <br>
+    <div class="form-group">
+        <label>name:</label>
+        <input type="text" name="name"  class="form-control" placeholder="必填" ng-model="name" required ng-blur="blur1(userForm.name.$valid)"/>
+    </div>
+    <div class="form-group">
+        <label>username:</label>
+        <input type="text" name="username" class="form-control" placeholder="非必填，最小长度3，最大长度8" ng-model="username" ng-minlength="3" ng-maxlength="8"/>
+    </div>
+    <div class="form-group">
+        <label>email:</label>
+        <input type="email" name="email" class="form-control" placeholder="非必填，要求合法" ng-model="email" ng-pattern="reg"/>
+    </div>
+    <button type="button" class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="submitForm(userForm.$valid)">submit</button>
+</div>
+<script src="../bower_components/angular-1.5.8/angular.min.js"></script>
+<script>
+    var myApp = angular.module('app',[]);
+    myApp.controller('contr', function ($scope) {
+        $scope.reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+        $scope.submitForm = function(isValid){
+            if(isValid){
+                alert('验证成功！')
+            }
+        }
+        $scope.blur1 = function (isValid) {
+            if(!isValid){
+                console.log('name有问题')
+                return false;
+            }
+        }
+    })
+</script>
+</body>
+</html>

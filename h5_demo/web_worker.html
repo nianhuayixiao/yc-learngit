@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<p>多线程通信
+    <output id="result"></output>
+</p>
+<p id="support"></p>
+<button id="stopButton">停止任务</button>
+<button id="postButton">发送消息</button>
+<div id="showMessage"></div>
+<script src="../bower_components/jquery/jquery.min.js"></script>
+<script>
+    window.addEventListener('load',loadDemo,true);
+    function loadDemo(){
+        if(typeof (Worker) !== "undefined"){
+            document.getElementById('support').innerHTML="提示：您的浏览器支持多线程。"
+            worker = new Worker('echoWorker.js');
+            worker.addEventListener('message',messageHandler,true);
+            worker.addEventListener('error',errorHandler,true);
+        }
+        document.getElementById('postButton').onclick=postMessagetoWorkers;
+        document.getElementById('stopButton').onclick=stopWorkers;
+    }
+    function messageHandler(e){
+        console.log('3333',e, e.data)
+        var dt = e.data;
+        var time = "当前时间：" + dt.getHours() +":"+dt.getMinutes()+":"+dt.getSeconds();
+        $("#showMessage").append('<br/>完成接收消息！'+time)
+    }
+    function errorHandler(e){
+        document.getElementById('showMessage').innerHTML = e.message;
+    }
+    function postMessagetoWorkers(){
+        $('#showMessage').append('<br/>开始发送消息！');
+        console.log('11111111')
+        worker.postMessage(0);
+    }
+    function stopWorkers(){
+        worker.terminate();
+    }
+
+</script>
+</body>
+</html>

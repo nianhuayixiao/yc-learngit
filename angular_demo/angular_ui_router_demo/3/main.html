@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../../../bower_components/angular-1.5.8/angular.min.js"></script>
+    <script src="../../../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+</head>
+<body>
+<body ng-app="myApp">
+    <h1>AngularJS Home Page (Ui-router Demonstration)</h1>
+    <div ui-view=""></div>
+    <script>
+        var myApp = angular.module("myApp", ['ui.router']);
+
+        myApp.config(function ($stateProvider, $urlRouterProvider) {
+
+            $urlRouterProvider.when("", "/PageTab/Page3");
+
+            $stateProvider
+                    .state("PageTab", {
+                        url: "/PageTab",
+                        templateUrl: "PageTab.html"
+                    })
+                    .state("PageTab.Page1", {
+                        url:"/Page1",
+                        templateUrl: "page1.html"
+                    })
+                    .state("PageTab.Page2", {
+                        url:"/Page2",
+                        templateUrl: "page2.html"
+                    })
+                    .state("PageTab.Page3", {
+                        url:"/Page3",
+                        templateUrl: "page3.html"
+                    });
+        });
+    </script>
+</body>
+</body>
+</html>

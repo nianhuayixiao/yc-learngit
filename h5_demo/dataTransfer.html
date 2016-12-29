@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            text-align: center;
+        }
+        #sourceObject,#aimObject{
+            float: left;
+            padding: 10px;
+            margin: 10px;
+        }
+        #sourceObject{
+            background-color: #DFD7D7;
+            width: 75px;
+            height: 70px;
+        }
+        #aimObject{
+            background-color: #A347FF;
+            width: 150px;
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+<h2>HTML5拖放</h2>
+<div id="status">状态监控中！</div>
+<div id="aimObject" ondragover="dragOver(event)" ondrop="drop(event)" ondragleave="dragLeave(event)" ondragenter="dragEnter(event)"><p>回收站</p></div>
+<div id="sourceObject" draggable="true" ondragstart="dragStart(event)" ondragend="dragEnd(event)" ondrag="drag(event)"><p>待删除文件</p></div>
+<script>
+    function dragStart(event){
+        event.dataTransfer.effectAllowed="copy";
+        event.dataTransfer.setData("Text",event.target.id);
+        document.getElementById("status").innerHTML="开始拖动";
+        console.log("开始拖动")
+    }
+    function drag(event){
+        document.getElementById("status").innerHTML="拖动中！";
+        console.log('拖动中')
+    }
+    function dragEnter(event){
+        event.preventDefault();
+        document.getElementById("status").innerHTML="进入目标区域";
+        console.log('进入目标区域')
+    }
+    function dragOver(event){
+        event.preventDefault();
+        event.dataTransfer.dropEffect="copy";
+        document.getElementById("status").innerHTML="在目标区域移动";
+        console.log('在目标区域移动')
+    }
+
+    function dragLeave(event){
+        document.getElementById("status").innerHTML="离开目标区域";
+        console.log('离开目标区域')
+    }
+    function drop(event){
+        event.preventDefault();
+        var data = event.dataTransfer.getData("Text");
+        event.target.appendChild(document.getElementById(data));
+        document.getElementById(data).innerHTML="废弃文件";
+        document.getElementById("status").innerHTML="放下对象";
+        console.log('放下对象')
+    }
+    function dragEnd(event){
+        document.getElementById("status").innerHTML="拖放结束";
+        console.log('拖放结束')
+    }
+</script>
+</body>
+</html>

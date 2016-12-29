@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <p>的撒范德萨范德萨发生的</p>
+    <div>jjjjjjjjjj</div>
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+        ;(function($){
+            $.fn.extend({
+                setRedText:function(){
+                    return $(this).css("color","red");
+                },
+                getRedText:function(){
+                    console.log($(this).css('color'));
+                }
+            })
+        })(jQuery)
+
+        $('p').setRedText();
+        $('p').getRedText();
+
+//        另一种写法，上面的写法可以定义多个方法
+
+        $.fn.setRedText = function() {
+            return $(this).css("color", "green");
+        };
+
+        $("div").setRedText();
+    </script>
+</body>
+</html>

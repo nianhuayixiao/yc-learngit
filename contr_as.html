@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="bower_components/jquery/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+</head>
+<body>
+<div ng-controller="demoController as demo">
+    hello : {{demo.title}} !
+    <input type="text" ng-model="demo.title"/>
+</div>
+<script>
+    $(document).ready(function () {
+        angular.bootstrap(document,['app']);
+    });
+    angular.module('app',[ ]).controller('demoController', function ($scope) {
+        console.log($scope);
+        console.log('-------');
+//        $scope.demo == this;
+        console.log($scope.demo);
+        console.log('-------');
+        console.log(this);
+
+        var d = this;
+        d.title='cccccc'
+    })
+</script>
+</body>
+</html>

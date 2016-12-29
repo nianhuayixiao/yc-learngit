@@ -1,0 +1,48 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+form{
+	padding:20px;
+	width:800px;
+	margin:0 auto;
+}
+form fieldset{
+	border:none;
+	margin-bottom: 10px;
+}
+form ol li{
+	list-style: none;
+	line-height: 30px;
+	padding:5px 10px;
+	margin-bottom: 2px;
+}
+form label{
+	float:left;
+	font-size: 13px;
+	width:110px;
+}
+form input[type=text]{
+	padding:5px;
+	width: 590px;
+}
+form textarea{
+	/*width: 600px;*/
+	/*height: 100px;*/
+}
+form input[type=button]{
+	border:1px solid #996;
+	width:150px;
+	height: 30px;
+	background: #666;
+	color:#fff;
+	margin-left: 120px;
+}
+section header{
+	width:1000px;
+	margin:0 auto;
+	padding-left: 120px;
+	font-weight: bold;
+	font-size: 24px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+</head>
+<body ng-app="app" ng-controller="ReaderCreateCtrl as vm">
+<form name="form" ng-submit="vm.submit(vm.form)" novalidate>
+    <div class="form-group">
+        <label>邮箱：<input class="form-control col-md-3" name="email" type="email" ng-model="vm.form.email" ng-required="true" bf-field-error/></label>
+    </div>
+    <div class="form-group">
+        <label>昵称：<input class="form-control col-md-3" name="name" type="text" ng-model="vm.form.name" ng-required="true" bf-field-error/></label>
+    </div>
+    <div class="form-group">
+        <label>密码：<input class="form-control col-md-3" name="password" type="password" ng-model="vm.form.password" minlength="3" maxlength="6" ng-required="true" bf-field-error/></label>
+    </div>
+    <div class="form-group">
+        <label>确认密码：<input class="form-control col-md-3" name="retypedPassword" type="password" ng-model="vm.retypedPassword" ng-required="true" bf-field-error="{same:'确认密码必须与密码相同'}" bf-assert-same-as="vm.form.password"/></label>
+    </div>
+    <div>
+        <input type="checkbox" ng-model="vm.accepted" bf-assert-same-as="true"/>同意协议
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid" ng-submit="vm.submit(vm.form)">提交</button>
+    </div>
+
+</form>
+<script src="../bower_components/angular-1.5.8/angular.min.js"></script>
+<script>
+    var app = angular.module('app',[]);
+    app.controller('ReaderCreateCtrl', function ($scope) {
+        var vm = this;
+        vm.submit = function(form){
+            console.log(form)
+        }
+    })
+    app.directive('bfFieldError', function ($compile) {
+        return{
+            restrict:'A',
+            require:'ngModel',
+            link: function (scope, elem, attrs, ngModelCtrl) {
+                var subScope = scope.$new(true);
+                subScope.hasError = function () {
+                    return ngModelCtrl.$dirty && ngModelCtrl.$invalid;
+                };
+                subScope.errors = function () {
+                    console.log(ngModelCtrl.$error)
+                    return ngModelCtrl.$error;
+                }
+                subScope.customMessages = scope.$eval(attrs.bfFieldError);    //不能写为var customMessages =
+                var hint = $compile('<ul ng-if="hasError()"><li ng-repeat="(name,wrong) in errors()" ng-if="wrong">{{name | error:customMessages}}</li></ul>')(subScope);
+                elem.after(hint);
+            }
+        }
+    })
+//    定义一个全局常量
+    app.constant('Errors', {
+        email:'不是有效格式的邮件地址',
+        required:'此项不能为空',
+        minlength:'密码长度为3-6位',
+        maxlength:'密码长度为3-6位',
+    });
+    app.filter('error', function (Errors) {
+        return function (name,customMessages) {
+            var errors = angular.extend({},Errors,customMessages)
+            console.log(customMessages)
+
+            return errors[name] || name;
+        }
+    })
+    app.directive('bfAssertSameAs', function () {
+        return{
+            restrict:'A',
+            require:'ngModel',
+            link: function (scope,ele,attrs,ngModelCtrl) {
+                var isSame = function (value) {
+                    var anotherValue = scope.$eval(attrs.bfAssertSameAs);
+//                    console.log(value,anotherValue)
+                    return value === anotherValue;
+                }
+
+                ngModelCtrl.$parsers.push(function (value) {
+                    console.log(isSame(value))
+                    ngModelCtrl.$setValidity('same', isSame(value));
+                    console.log(ngModelCtrl.$error)
+                    return isSame(value) ? value : undefined;
+                });
+
+                scope.$watch(function(){return scope.$eval(attrs.bfAssertSameAs)}, function () {
+                    ngModelCtrl.$setValidity('same',isSame(ngModelCtrl.$modelValue))
+                })
+            }
+        }
+    })
+</script>
+</body>
+</html>

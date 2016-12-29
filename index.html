@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <style>
+        .error{
+            border:1px solid #a01;
+        }
+    </style>
+</head>
+<body ng-app="myApp" ng-controller="mainController">
+<form name="signUpForm" ng-submit="submitForm()">
+    <div class="form-group">
+        <lable>用户名</lable>
+        <input name="username"
+               ng-model="user"
+               type="text"
+               ng-class="{'error':signUpForm.username.$invalid && signUpForm.username.$touched}"
+               class="form-control"
+               ng-minlength="2"/>
+        <button type="submit" class="btn btn-primary" ng-disabled="signUpForm.$invalid">提交</button>
+
+    </div>
+</form>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

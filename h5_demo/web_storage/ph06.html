@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#userInfo {
+				display: none;
+				border: 1px solid #cccccc;
+				border-radius: 20px;
+				line-height: 20px;
+				text-align: center;
+				font-size: 14px;
+				background: #cccccc;
+				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			}
+		</style>
+	</head>
+	<body>
+		<iframe src="header.html" frameborder="0"></iframe>
+		<form>
+			<div id="login">
+				<label>用户名：
+					<input type="text" name="userName"/>
+				</label>
+				<label>密码：
+					<input type="password" name="password"/>
+				</label>
+				<input type="button" value="登陆" onclick="$.login()"/>
+			</div>
+		</form>
+		<div id="userInfo">
+			<span></span>
+			<a href="javascript:;" onclick="$.exit()">退出</a>
+		</div>
+		<script src="../../bower_components/jquery/jquery.min.js"></script>
+		<script>
+			(function ($) {
+				$.extend({
+					login: function () {
+						var userName = $('input[name="userName"]').val();
+						var password = $('input[name="password"]').val();
+//				用户登陆
+						if (userName == 'claire' && password == '123456') {
+							window.sessionStorage.userName = 'claire';
+							$('#userInfo span').text('欢迎您：' + userName);
+							$('#userInfo').show();
+							$('#login').hide();
+
+						}
+					},
+					exit: function () {
+						window.sessionStorage.clear();
+						window.location.href = 'index.html';
+					},
+					IsBrowerSupport: function () {
+						if (window.sessionStorage) {
+
+						} else {
+							alert('您的浏览器不支持sessionStorage');
+						}
+					}
+				})
+			})(jQuery)
+			/*function login() {
+			 var userName = $('input[name="userName"]').val();
+			 var password = $('input[name="password"]').val();
+			 //				用户登陆
+			 if (userName == 'claire' && password == '123456') {
+			 window.sessionStorage.userName = 'claire';
+			 $('#userInfo span').text('欢迎您：' + userName);
+			 $('#userInfo').show();
+			 $('#login').hide();
+
+			 }
+			 }
+			 function exit() {
+			 window.sessionStorage.clear();
+			 window.location.href = 'index.html';
+			 }*/
+			$(function () {
+				$.IsBrowerSupport();
+				var userName = window.sessionStorage.userName;
+				if (userName) {
+					$('#userInfo span').text('欢迎您：' + userName);
+					$('#userInfo').show();
+					$('#login').hide();
+				}
+			})
+		</script>
+	</body>
+</html>

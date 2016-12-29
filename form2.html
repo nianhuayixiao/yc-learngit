@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="inputExample">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>input例子</title>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript">
+        angular.module('inputExample', [])
+                .controller('ExampleController', ['$scope', function ($scope) {
+                    $scope.user = { name: 'guest', last: 'visitor' };
+                }]);
+    </script>
+</head>
+<body>
+<div ng-controller="ExampleController">
+    <form name="myForm">
+        User name: <input type="text" name="userName" ng-model="user.name" required>
+        <span class="error" ng-show="myForm.userName.$error.required">
+                Required!
+        </span><br>
+        Last name: <input type="text" name="lastName" ng-model="user.last"
+                          ng-minlength="3" ng-maxlength="10">
+        <span class="error" ng-show="myForm.lastName.$error.minlength">
+                Too short!
+        </span>
+        <span class="error" ng-show="myForm.lastName.$error.maxlength">
+                Too long!
+        </span><br>
+    </form>
+    <hr>
+    <tt>user = {{user}}</tt><br />
+    <tt>myForm.userName.$valid = {{myForm.userName.$valid}}</tt><br>
+    <tt>myForm.userName.$error = {{myForm.userName.$error}}</tt><br><br>
+
+    <tt>myForm.lastName.$valid = {{myForm.lastName.$valid}}</tt><br>
+    <tt>myForm.lastName.$error = {{myForm.lastName.$error}}</tt><br><br>
+
+    <tt>myForm.$error.minlength = {{!!myForm.$error.minlength}}</tt><br>
+    <tt>myForm.$error.maxlength = {{!!myForm.$error.maxlength}}</tt><br><br>
+
+    <tt>myForm.$valid = {{myForm.$valid}}</tt><br>
+    <tt>myForm.$error = {{!!myForm.$error}}</tt><br>
+    <tt>myForm.$error.required = {{!!myForm.$error.required}}</tt><br>
+    <tt>myForm.$error.minlength = {{!!myForm.$error.minlength}}</tt><br>
+    <tt>myForm.$error.maxlength = {{!!myForm.$error.maxlength}}</tt><br>
+    <button ng-disabled="myForm.$error.required || myForm.$error.maxlength || myForm.$error.required">提交</button>
+</div>
+</body>
+</html>

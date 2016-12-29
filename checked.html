@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="dim">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ngChecked例子</title>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript">
+        var dem = angular.module("dim", []);
+        dem.controller("dimcon", ["$scope", function ($scope) {
+            $scope.master = true;
+        }]);
+    </script>
+</head>
+<body ng-controller="dimcon">
+Check me to check both: <input type="checkbox" ng-model="master"><br />
+<input id="checkSlave" type="checkbox" ng-checked="master">
+</body>
+</html>

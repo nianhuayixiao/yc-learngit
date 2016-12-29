@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../bower_components/angular/angular.min.js"></script>
+</head>
+<body ng-app="myDemo" ng-controller="myController">
+{{result}}
+<button ng-click="testHttp()">测试$http</button>
+<script>
+    angular.module('myDemo', [])
+            .controller('myController', function ($scope, $http,$location,$log,myService) {
+                $scope.testHttp = function () {
+                    myService.getData().then(function (result) {
+                        console.log($location)
+                        console.log(result + '成功了');
+                        $log.log(result + 'hahahaah')
+                    },function(result){
+                        console.log(result + '失败了')
+                    })
+                }
+            })
+            /*.service('myService',function($q,$http){
+                this.getData = function(){
+                    var deferred = $q.defer();
+                    $http.get('text').success(function (res) {
+//                        realData被包含在data的“data”字段中，一般它才是我们想要的
+                        deferred.resolve(res + ' 1')
+                    }).error(function(res){
+//                        realData被包含在data的“data”字段中，一般它才是我们想要的
+                        deferred.reject(res + ' 1')
+                    });
+                    return deferred.promise;
+                }
+            });*/
+//    另外一种写服务的方法：
+    .service('myService',function($q,$http){
+        this.getData = function(){
+            var deferred = $q.defer();
+            $http.get('text').then(function (res) {
+//                        realData被包含在data的“data”字段中，一般它才是我们想要的
+                deferred.resolve(res.data + ' 1')
+            },function(res){
+//                        realData被包含在data的“data”字段中，一般它才是我们想要的
+                deferred.reject(res.data + ' 1')
+            });
+            return deferred.promise;
+        }
+    });
+
+</script>
+</body>
+</html>

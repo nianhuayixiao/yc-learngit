@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="style.css"/>
+	</head>
+	<body>
+		<div class="header">
+			<iframe src="header.html" width="1000" height="145" marginheight="0" marginwidth="0"
+					frameborder="0"></iframe>
+		</div>
+		<section id="register">
+			<header>文章发布</header>
+			<form>
+				<fieldset>
+					<legend></legend>
+					<ol>
+						<li>
+							<label for="title">标题：</label>
+							<input type="text" id="title" name="title" required autofocus placeholder="请输入标题"/>
+						</li>
+						<li>
+							<label for="content">内容：</label>
+							<textarea name="content" id="content" cols="30" rows="3" required></textarea>
+						</li>
+					</ol>
+				</fieldset>
+				<fieldset>
+					<input type="button" value="提交" onclick="articlePub()"/>
+				</fieldset>
+			</form>
+		</section>
+		<script src="../../bower_components/jquery/jquery.min.js"></script>
+		<script>
+			var db = openDatabase('article','1.0','article database',2*1024*1024);
+			function createTable(){
+				db.transaction(function (tx) {
+//					创建数据表
+					tx.executeSql('create table if not exists article(id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT,content TEXT)')
+				});
+			}
+			/*function deleteTable(){
+				db.transaction(function (tx) {
+//					删除数据表
+					tx.executeSql('DROP TABLE article',[],function(tx,rs){
+						alert('删除表成功');
+					}, function (tx,error) {
+						alert(error.source+'=='+error.message);
+					})
+				})
+			}
+			function deleteData(){
+				db.transaction(function (tx) {
+//					删除数据
+					tx.executeSql('delete from article',[],function(tx,rs){
+						alert('数据清空');
+					}, function (tx,error) {
+						alert(error.source+'=='+error.message);
+					})
+				})
+			}*/
+			function articlePub() {
+				var title = $('#title').val();
+				var content = $('#content').val();
+				if($.trim(title)==0 || $.trim(content)==0){
+					alert('请输入内容');
+					return;
+				}
+				db.transaction(function (tx) {
+//					添加数据
+					tx.executeSql('insert into article(title,content) values(?,?)',[title,content], function (tx,rs) {
+						alert('发布成功');
+						window.location.href='index.html';
+					},function(tx,error){
+						alert(error.source+'=='+error.message);
+					})
+				})
+			}
+			createTable()
+		</script>
+	</body>
+</html>

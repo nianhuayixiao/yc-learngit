@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="bower_components/angular/angular.min.js"></script>
+</head>
+<body ng-app="myapp" ng-controller="myctrl">
+<input type="text" ng-model="color"/>
+<input type="text" ng-model="name"/>
+<hr>
+<hello child-color="{{color}}" other-name="name"></hello>
+<script>
+    var myapp = angular.module('myapp',[])
+            .controller('myctrl',['$scope', function ($scope) {
+                $scope.color='red';
+                $scope.name = 'claire'
+            }])
+            .directive('hello', function () {
+                return{
+                    restrict:'AECM',
+                    replace:true,
+                    template:'<button style="background-color: {{color}}" title="{{color}}">click me，{{name}}</button>',
+                    scope:{
+                        color: '@childColor',
+                        name:'=otherName'
+                    },
+                    link: function (scope,elements,attrs) {
+                        elements.bind('click', function () {
+                            scope.$apply(function () {
+                                scope.color = 'blue';
+                            })
+                        })
+                        scope.name = 'happily';
+                    }
+                }
+            })
+</script>
+</body>
+</html>

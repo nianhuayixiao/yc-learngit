@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> $scope.$apply</title>
+</head>
+<body ng-app="myApp">
+<div ng-controller="MessageController">
+    Delayed Message: {{message}}
+</div>
+<script src="../bower_components/angular/angular.min.js"></script>
+<script>
+    angular.module('myApp',[])
+            .controller('MessageController', function($scope) {
+                $scope.getMessage = function() {
+                    setTimeout(function() {
+                        $scope.message = 'Fetched after 3 seconds';
+                        console.log('message:'+$scope.message);
+                        $scope.$apply();
+                    }, 2000);
+                }
+                $scope.getMessage();
+
+            });
+</script>
+</body>
+</html>

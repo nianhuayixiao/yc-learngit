@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ng-copy</title>
+</head>
+<body>
+<div ng-app="myDemo" ng-controller="myController">
+    <div>{{result}}</div>
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript">
+        angular.module('myDemo', [])
+                .controller('myController', ['$scope', '$http', function ($scope, $http) {
+                    $scope.testHttp = function () {
+                        $http({
+                            method: 'GET',
+                            url: 'https://randomuser.me/api/'
+                        }).success(function (data) {    // 这里的data的类型是object，并且，它已经是返回数据的“数据”部分（如暂时不理解，后面会说到）
+                            console.log(angular.toJson(data, true));
+                            $scope.result = data;
+                        }).error(function (err) {
+                            console.log(err);
+                        }).then(function () {
+                            alert('ccc');
+                        })
+                    }
+                    $scope.testHttp();
+                }]);
+    </script>
+</div>
+</body>
+</html>

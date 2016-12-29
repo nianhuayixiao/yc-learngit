@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			window.onload = function () {
+				var items = ['apple', 'orange', 'cherry', 'lime'];
+				var sep = ;
+				concatenateString(items, sep);
+				console.log(items);
+				console.log(sep);
+			}
+			function concatenateString(strings, separator) {
+				var result = '';
+				for (var i = 0; i < strings.length; i++) {
+					result += strings[i] + separator;
+				}
+				separator = result;
+				strings[strings.length] = result;
+			}
+		</script>
+	</body>
+</html>

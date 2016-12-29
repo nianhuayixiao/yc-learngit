@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+</head>
+<body>
+    <div id="page">
+        <div id="actarea">
+            <div class="form-group">
+                <label>键：<input type="text" id="key" class="form-control col-md-4"/></label>
+            </div>
+            <div class="form-group">
+                <label>值：<input type="text" id="value" class="form-control col-md-4"/></label>
+            </div>
+            <div id="buttons">
+                <button id="add" class="btn">添加</button>
+                <button id="clear" class="btn">清除</button>
+            </div>
+        </div>
+        <div id="contable">
+            <table class="table" id="data">
+
+            </table>
+        </div>
+    </div>
+    <script>
+        displayData();
+        var buttons=document.getElementsByTagName('button');
+        for(var i=0;i<buttons.length;i++){
+            buttons[i].onclick=handleButtonPress;
+        }
+        function handleButtonPress(e){
+            switch(e.target.id){
+                case 'add':
+                    var key = document.getElementById('key').value;
+                    var value = document.getElementById('value').value;
+                    localStorage.setItem(key,value);
+                    displayData();
+                    break;
+                case 'clear':
+                    localStorage.clear();
+                    displayData();
+                    break;
+                default :
+                    break;
+            }
+        }
+        function displayData(){
+            var tableElement = document.getElementById('data');
+            tableElement.innerHTML='<tr><th>键</th><th>值</th></tr>'
+            var itemCount = localStorage.length;
+            for(var i=0;i<itemCount+1;i++){
+                var key = localStorage.key(i);
+                var value = localStorage.getItem(key);
+                tableElement.innerHTML+='<tr><td>'+key+'</td><td>'+value+'</td></tr>'
+            }
+        }
+    </script>
+</body>
+</html>

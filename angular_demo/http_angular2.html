@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../bower_components/angular/angular.min.js"></script>
+</head>
+<body ng-app="myDemo" ng-controller="myController">
+{{result}}
+<button ng-click="testHttp()">测试$http</button>
+<script>
+    angular.module('myDemo', [])
+            .controller('myController', ['$scope', '$http', function ($scope, $http) {
+                $scope.testHttp = function () {
+//                    $http返回promise对象
+                    console.log($http.get('text'));
+                    $http({
+                        method: 'GET',
+                        url: 'text'
+                    })
+                            //                            该处的data和then()方法中data.data相同
+                            .success(function (data) {
+                        console.log(data)
+                    }).error(function (data) {
+                        console.log(data)
+                    })
+
+
+                            /*.then(function (data) {
+//                        realData被包含在data的“data”字段中，一般它才是我们想要的
+                        console.log(data.data)
+                        console.log('success:'+ data.data);
+                    },function(data){
+//                        realData被包含在data的“data”字段中，一般它才是我们想要的
+                        console.log('error:'+ data.data);
+                    })*/
+                }
+            }]);
+</script>
+</body>
+</html>

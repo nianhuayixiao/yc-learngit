@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="formExample">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>from例子</title>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript">
+        angular.module('formExample', [])
+                .controller('FormController', ['$scope', function ($scope) {
+                    $scope.userType = 'guest';
+                }]);
+    </script>
+    <style type="text/css">
+        .my-form {
+            -webkit-transition: all linear 0.5s;
+            transition: all linear 0.5s;
+            background: transparent;
+        }
+        .my-form.ng-invalid {
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<!--ng-valid (有效的).
+ng-invalid （无效的）.
+ng-pristine （原始，简介）.
+ng-dirty （脏的）.
+ng-submitted （提交的）.-->
+<form name="myForm" ng-controller="FormController" class="my-form">
+    userType: <input name="input" ng-model="userType" required>
+    <span class="error" ng-show="myForm.input.$error.required">Required!</span><br>
+    <tt>userType = {{userType}}</tt><br>
+    <tt>myForm.input.$valid = {{myForm.input.$valid}}</tt><br>
+    <tt>myForm.input.$error = {{myForm.input.$error}}</tt><br>
+    <tt>myForm.$valid = {{myForm.$valid}}</tt><br>
+    <tt>myForm.$error.required = {{!!myForm.$error.required}}</tt><br>
+</form>
+</body>
+</html>

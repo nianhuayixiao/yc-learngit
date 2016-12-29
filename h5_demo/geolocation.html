@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+    <style>
+        *{height: 100%;}
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+        var positionOptions = {
+            enableHighAccuracy:true,
+            maximunAge:2000,
+            timeout:3000
+        }
+        $(function(){
+            alert('11111')
+            getLocation();
+        })
+        function getLocation(){
+            alert('22222')
+            if(navigator.geolocation){
+                navigator.geolocation.watchPosition(seccessCallback,errorCallback,positionOptions);
+            }else{
+                alert('该浏览器不支持定位！');
+            }
+        }
+        function seccessCallback(position){
+            alert('3333')
+            var lat = "纬度："+ position.coords.latitude +"\r\n";
+            var lon = "经度："+ position.coords.longitude + "\r\n";
+            var accuracy = "海拔："+position.coords.accuracy+"\r\n";
+            var altitudeAccuracy = "";
+            var heading = "";
+            var speed = "";
+            if(position.coords.latitude){
+                altitudeAccuracy = "海拔精确度："+position.coords.altitudeAccuracy +"米\r\n";
+                alert(altitudeAccuracy)
+            }
+            if(position.coords.heading){
+                heading = "朝向："+position.coords.heading +"\r\n";
+                alert("朝向："+heading)
+            }
+            if(position.coords.speed){
+                speed = "速度："+position.coords.speed+"m/s\r\n";
+                alert("速度："+speed)
+            }
+            var time = "时间戳："+position.timestamp;
+            var str = lat + lon + accuracy + altitudeAccuracy + heading + speed + time;
+            alert(str);
+        }
+        function errorCallback(error){
+            alert('44444')
+            alert(error.code);
+            switch(error.code){
+                case error.PERMISSION_DENIED:
+                    alert('获取位置信息被拒绝');
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>

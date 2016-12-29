@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="bower_components/angular/angular.min.js"></script>
+</head>
+<body ng-app="app" ng-controller="contr">
+<he>
+    <hello color="color" sayhello="sayhello()"></hello>
+</he>
+<script>
+    angular.module('app',[])
+            .controller('contr', function () {
+    }).directive('hello', function () {
+                return{
+                    scope:{},
+                    require:'^he',
+                    compile: function (element,attrs) {
+                        return function (scope,elements,attrs,cntIns) {
+                            cntIns.fn()
+                        };
+                    }
+                }
+            })
+            .directive('he', function () {
+                return {
+                    restrict:'AE',
+                    scope:{},
+                    controller: function ($scope, $compile, $http) {
+                        this.fn= function () {
+                            alert('hello');
+                        };
+                    }
+                }
+            })
+</script>
+</body>
+</html>

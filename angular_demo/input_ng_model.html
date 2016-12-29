@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-app="app" ng-controller="ctrl" ng-cloak>
+<div ng-form="zform" novalidate>
+    <input type="text" test ng-model="_val" name="name"/><br>
+    <!--当input内容为空时，下面两项为true和{emflag:true}-->
+
+    {{zform.name.$dirty}}<br>\\
+    {{zform.name.$error}}
+
+    <span ng-show="zform.name.$dirty && zform.name.$error.emflag">不能为空</span>
+    <button ng-disabled="zform.$invalid">提交</button>
+</div>
+<script src="../bower_components/angular-1.5.8/angular.min.js">
+</script>
+<script>
+    var app = angular.module('app',[]);
+    app.controller('ctrl',function ($scope){
+        $scope._val = "leifengshushu";
+    })
+    app.directive('test',function($log){
+        return{
+            restrict: 'AE',
+            require: 'ngModel',
+            link: function (scope,iElem,iAttr,ngmodel){
+                console.log(ngmodel);
+//                $watch必须带上$,属性名应使用驼峰，不能是$scope
+                scope.$watch(iAttr.ngModel, function (newKey) {
+                    $log.log(ngmodel.$dirty)
+                    if(ngmodel.$isEmpty(newKey)){
+                        console.log('此时为空')
+                        ngmodel.$setValidity('emflag',false)
+                        console.log(ngmodel.$error)
+                    }else{
+                        ngmodel.$setValidity('emflag',true)
+                    }
+
+                })
+            }
+        }
+    })
+</script>
+</body>
+</html>

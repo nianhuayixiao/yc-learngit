@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="flexslider.css"/>
+    <style>
+        .data-view .slider-wrap{width: 888px;margin:0 auto;}
+        .data-view #carousel img {
+            display: block;
+            padding: 5px;
+            cursor: pointer;
+        }
+        .data-view #carousel img:hover,
+        .data-view #carousel .flex-active-slide img
+        {background-color: #2ebade;}
+        .data-view .flexslider{margin-bottom: 20px;}
+    </style>
+</head>
+<body class="data-view">
+<div class="slider-wrap">
+    <!-- Place somewhere in the <body> of your page -->
+    <div id="slider" class="flexslider">
+        <ul class="slides">
+            <li>
+                <img src="img/dataview02.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview03.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview04.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview05.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview06.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview02.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview03.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview04.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview05.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview06.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview02.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview03.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview04.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview05.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview06.jpg" />
+            </li>
+            <!-- items mirrored twice, total of 12 -->
+        </ul>
+    </div>
+    <div id="carousel" class="flexslider">
+        <ul class="slides">
+            <li>
+                <img src="img/dataview02.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview03.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview04.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview05.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview06.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview02.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview03.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview04.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview05.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview06.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview02.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview03.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview04.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview05.jpg" />
+            </li>
+            <li>
+                <img src="img/dataview06.jpg" />
+            </li>
+            <!-- items mirrored twice, total of 12 -->
+        </ul>
+    </div>
+</div>
+<!--<script src="bower_components/jquery/jquery.min.js"></script>-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="bower_components/jquery.flexslider.js"></script>
+<!--<script>-->
+    <!--$(window).load(function() {-->
+        <!--// The slider being synced must be initialized first-->
+        <!--$('#carousel').flexslider({-->
+            <!--animation: "slide",-->
+            <!--controlNav: false,-->
+            <!--directionNav: true,-->
+            <!--animationSpeed: 800,-->
+            <!--slideshowSpeed:3000,-->
+            <!--itemWidth: 166,-->
+            <!--itemMargin: 10,-->
+            <!--asNavFor: '#slider'-->
+
+        <!--});-->
+
+        <!--$('#slider').flexslider({-->
+            <!--animation: "slide",-->
+            <!--controlNav: false,-->
+            <!--directionNav: true,-->
+            <!--animationSpeed: 800,-->
+            <!--slideshowSpeed:3000,-->
+            <!--sync: "#carousel"-->
+        <!--});-->
+    <!--});-->
+<!--</script>-->
+
+<script type="text/javascript">
+//    $(function(){
+//        SyntaxHighlighter.all();
+//    });
+    $(window).load(function(){
+        $('#carousel').flexslider({
+            animation: "slide",
+            controlNav: false,
+            animationLoop: true,
+            slideshow: true,
+            itemWidth: 210,
+            itemMargin: 5,
+            animationSpeed: 800,
+            slideshowSpeed:3000,
+            asNavFor: '#slider'
+        });
+
+        $('#slider').flexslider({
+            animation: "slide",
+            controlNav: false,
+            animationLoop: true,
+            slideshow: true,
+            animationSpeed: 800,
+            slideshowSpeed:3000,
+            sync: "#carousel"
+//            start: function(slider){
+//                $('body').removeClass('loading');
+//            }
+        });
+    });
+</script>
+</body>
+</html>

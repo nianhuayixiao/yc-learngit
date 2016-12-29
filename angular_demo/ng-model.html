@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+</head>
+<body>
+<form action="" ng-app="myApp" ng-controller="myContr">
+    <input type="radio" name="sex" value="male" ng-model="person.sex" />男
+    <input type="radio" name="sex" value="female" ng-model="person.sex" />女
+    <input type="text" ng-model="person.sex" />
+
+    <input ng-model="checkboxModel" type="checkbox" ng-false-value=" 'bye bye' " >
+
+    <input type="checkbox" ng-true-value="true" ng-false-value="false" ng-model="person.hobby.pingpong" />乒乓球
+    <input type="checkbox" ng-true-value="true" ng-false-value="false" ng-model="person.hobby.football" />足球
+    <input type="checkbox" ng-true-value="true" ng-false-value="false" ng-model="person.hobby.basketball" />篮球
+    <span>{{ person.hobby.pingpong }} {{ person.hobby.football }} {{ person.hobby.basketball }} </span>
+</form>
+<label><input type="radio" name="cloudwise"/>jkb</label>
+<input type="radio" name="cloudwise"/>tsb
+
+<input type="checkbox" name="jkb" value="jkb"/>jkb
+<input type="checkbox" name="tsb"/>tsb
+<input type="checkbox" name="ycb"/>ycb
+
+<script src="../bower_components/angular/angular.min.js"></script>
+<script>
+    var myApp = angular.module('myApp',[]);
+    myApp.controller('myContr', function ($scope) {
+        $scope.person = {
+            sex:'female',
+            hobby:{
+                pingpong:true,
+                football:true,
+                basketball:false
+            }
+        }
+    })
+</script>
+</body>
+</html>

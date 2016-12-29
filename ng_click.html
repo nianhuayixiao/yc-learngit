@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>阻止事件冒泡</title>
+    <script src="bower_components/angular/angular.min.js"></script>
+</head>
+<body ng-controller="demo as d">
+    <div ng-click="d.click('parent',$event)">
+        give some text for click
+        <hr>
+        <input type="checkbox" ng-model="d.stopPropagation"/>Stop Propagation ?
+        <hr>
+        <button type="button" ng-click="d.click('button',$event)">button</button>
+    </div>
+    <hr><hr>
+    <!--下部分代码验证：内部和外部click事件，处理内容不同时，依旧会冒泡-->
+    <div ng-click="d.click2();">
+        div2
+        <button ng-click="d.click3($event);">button3</button>
+    </div>
+    <!--Angular支持的event： click dblclick mousedown mouseup mouseover mouseout mousemove mouseenter mouseleave keydown keyup keypress submit focus blur copy cut paste-->
+    <!--Angular在执行事件函数时候传入了一个名叫$event的常量，该常量即代表当前event对象，如果你在Angular之前引入了jQuery那么这就是jQuery的event.-->
+    <script>
+        angular.module("app",[])
+                .controller("demo",[function(){
+                    var vm = this;
+
+                    vm.click = function(name,$event){
+                        console.log(name +" -----called");
+                        if(vm.stopPropagation){
+                            $event.stopPropagation();
+                        }
+                    };
+                    vm.click2 = function(){
+                        console.log('22222');
+                    };
+                    vm.click3 = function($event){
+                        console.log('33333');
+                        $event.stopPropagation();
+                    }
+
+//                    return vm;
+                }]);
+    </script>
+</body>
+</html>

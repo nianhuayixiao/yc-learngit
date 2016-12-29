@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-app="myApp" ng-controller="myCont">
+    <p>姓名：{{name}}</p>
+    <p>年龄：{{age}}</p>
+    <input type="text" ng-model="name"/>
+    <input-name name1="name"></input-name>
+    <input-name name1="name" age1="age" ></input-name>
+    <input-name name1="name" age1="age"></input-name>
+<script src="bower_components/angular/angular.min.js"></script>
+    <script>
+        var app = angular.module('myApp',[]);
+        app.controller('myCont',['$scope','$timeout', function (a,b) {
+            a.name="cc";
+            a.age='23';
+            b(function(){
+                console.log(a.name)
+            },5000)
+        }]);
+        app.directive('inputName', function () {
+           return{
+               restrict:'E',
+               scope:{},
+               controller:'myCont',
+               replace:true,
+               template:'<div style="border:1px solid #ccc;margin-bottom:10px;padding:10px;"><input type="text" ng-model="name2"/>'+
+               '<input type="text" ng-model="age2" />'+
+               '<p class="small" ng-click="changeColor()">you are so young!</p></div>',
+               link: function (scope, ele, attr) {
+                   scope.changeColor = function () {
+                       ele.css('backgroundColor','red');
+                   }
+                   scope.name2 = 'bb';
+               }
+           }
+        })
+    </script>
+</body>
+</html>

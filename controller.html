@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="bower_components/angular/angular.min.js"></script>
+</head>
+<body ng-app="app">
+<div ng-controller="MainCtrl">
+    <input type="text" ng-model="test"/>
+
+    <div ng-click="change()">click me</div>
+</div>
+<div ng-controller="sideCtrl">
+    <div ng-click="add()">my name {{name}}</div>
+</div>
+<script>
+    var app = angular.module('app',[]);
+    app.factory('instance', function(){
+        return {};
+    });
+    app.controller('MainCtrl', function($scope, instance) {
+        $scope.change = function() {
+            instance.name = $scope.test;
+        };
+    });
+    app.controller('sideCtrl', function($scope, instance) {
+        $scope.add = function() {
+            $scope.name = instance.name;
+        };
+    });
+</script>
+</body>
+</html>

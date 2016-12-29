@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../bower_components/angular-1.5.8/angular.min.js"></script>
+    <script src="../bower_components/angular-1.5.8/angular-sanitize.min.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="myContr">
+    <p ng-bind-html="text | to_trusted"></p>
+<script>
+    var myModule = angular.module('myApp',['ngSanitize']);
+    myModule.controller('myContr',function($scope){
+        $scope.text='<p>tttt<i>llllll</i></p>'
+    })
+    myModule.filter('to_trusted', function ($sce) {
+        return function (text) {
+            return $sce.trustAsHtml(text);
+        }
+    })
+</script>
+</body>
+</html>

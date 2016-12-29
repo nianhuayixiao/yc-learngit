@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>将元素对象赋予数组的方法slice;借用别人的属性和方法；</title>
+</head>
+<body>
+    <p>aaaaaaaaaa</p>
+    <p>bbbbbbbbbb</p>
+    <p>cccccccccc</p>
+    <div id="box" style="background: red;"></div>
+    <script>
+        var domNodes = Array.prototype.slice.call(document.getElementsByTagName('p'))
+        console.log(domNodes)
+
+        var dd = domNodes.slice(1,2);
+        console.log(dd)
+
+
+        var parent = function () {
+            this.name = "zxz";
+            this.age = "27";
+        }
+        var child = {}
+        parent.call(child);
+//        调用了父级的name
+        console.log(child.name)
+
+
+        function changeStyle(attr, value){
+            this.style[attr] = value;
+        }
+        var box = document.getElementById('box');
+        changeStyle.call(box, "height", "200px");
+
+
+
+        var header = function(row,value){
+            this.grade = "二班";
+            this.row = value;
+        }
+        var student = function(){
+            this.name = "suwukong";
+            header.call(this,'row','三排');
+            console.log(this.row)
+//            console.log(this)
+        }
+        student();
+
+    </script>
+</body>
+</html>

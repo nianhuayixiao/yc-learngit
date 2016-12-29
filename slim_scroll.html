@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div id="test" style="border:1px solid #ccc;">
+        slimScroll is a small jQuery plugin that transforms anyslimScroll is a small jQuery plugin that transforms anyslimScroll is a small jQuery plugin that transforms anyslimScroll is a small jQuery plugin that transforms anyslimScroll is a small jQuery plugin that transforms anyslimScroll is a small jQuery plugin that transforms any div into a scrollable area with a nice scrollbar - similar to the one Facebook and Google started using in their products recently. slimScroll doesn't occupy any visual space as it only appears on a user initiated mouse-over. User can drag the scrollbar or use mouse-wheel to change the scroll value.
+    </div>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <script>
+        $(function(){
+            $('#test').slimScroll({
+                width : '400px', // 可见滚动区域宽度，默认auto（以像素为单位）
+                height : 'auto',   // 可见滚动区域高度，默认250px（以像素为单位）
+                size : '7px',   // 滚动条的宽度，（以像素为单位）
+                color: '#000',  // 滚动条颜色，默认#000000
+                position : 'right', // 滚动条位置，默认right，可选：left/right
+                alwaysVisible : false,  // 是否禁用隐藏滚动条，默认为false（当hover才显示滚动条）
+                distance : '1px',   // 边缘和滚动条之间的距离，默认为1px（以像素为单位）
+                start : 'top',  // 滚动条初始位置，默认为top，可选：top / bottom / $('selector')[滚动区域内容元素位置]
+                wheelStep : 20, // 设置鼠标每步滚动值大小，默认为20px
+                railVisible : false,    // 设置滚动轨迹的可见性，默认为false
+                railColor : '#333', // 滚动轨迹颜色，默认#333
+                railOpacity : .2,   // 设置滚动轨迹透明度，默认为0.2
+                allowPageScroll : false,    //检查滚动条滚动到顶部或底部时是否允许页面滚动,默认false
+                scrollTo:'0px',     // 跳转到指定的滚动值。可以在已启用slimScroll的任何元素上手动调用,将其滚动到指定位置（调用方式：$(element).slimScroll({ scrollTo: '50px' });）
+                scrollBy:'50px',    // 在当前滚动位置id基础上，增加或减少（正/负）当前滚动值。可以在已启用slimScroll的任何元素上手动调用,将其滚动到指定位置（调用方式：$(element).slimScroll({ scrollBy: '50px' });）
+                disableFadeOut : false, // 检查当用户鼠标在滚动区域悬停并且不做任何操作，是否应该隐藏滚动条，alwaysVisible为true时该参数无效，默认false
+                touchScrollStep : 200  // 用户使用手势触摸时的滚动值
+            });
+            $('#test').slimScroll().bind('slimscroll', function(e, pos){
+                console.log("到达：" + pos);
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户体验监控平台</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <style>
+        *{margin: 0;padding:0;box-sizing: border-box;}
+        html,body{height:100%;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;font-size: 14px;color:#787878;}
+        body{background: #65d3fc url("login_img/bg.jpg") no-repeat;background-size: cover;}
+        .fl{float: left;}
+        .fr{float: right;}
+        .clearfix:before,.clearfix:after{display: table;content: '';}
+        .clearfix:after{clear: both;}
+        .login_panel{position:absolute;left:50%;top:50%;width:360px;-webkit-transform:translate(-50%, -50%);-moz-transform: translate(-50%, -50%);-ms-transform: translate(-50%, -50%);-o-transform: translate(-50%, -50%);transform: translate(-50%, -50%);background: #f7f6f2;padding:30px;text-align: center;}
+        .login_panel h3{font-size: 22px;color:#1579fb;margin:20px 0 15px;}
+        form input,form button{font-size: 14px;}
+        form .login-err-tip{color:#ff5959;text-align: center;min-height: 30px;}
+        form .form-group{margin: 20px 0;}
+        form .form-group.first{margin-top:0;}
+        form .form-group .form-control{display:block;width:100%;padding:15px 20px;outline:none;background: #e6e6e6;border:1px solid #e6e6e6;-webkit-border-radius: 2px;-moz-border-radius: 2px;-ms-border-radius: 2px;-o-border-radius: 2px;border-radius: 2px;}
+        form .form-group .err-border{border:1px solid #ff5959;}
+        form .form-group label{position: relative;}
+        form .form-group .checkbox-input{ opacity: 0;position: absolute;z-index: -1;top: 2px;left:0;width: 14px;height: 14px;}
+        form .form-group .checkbox-input+span{display: inline-block;width:14px;height: 14px;margin-right:5px;vertical-align:middle;background: url("login_img/no_checked.jpg") no-repeat center;}
+        form .form-group .checkbox-input:checked+span{background: url("login_img/checked.jpg") no-repeat center;}
+        form .form-group a{color: inherit;text-decoration: none;}
+        form .form-group .login-btn{display: block;width: 100%;padding: 15px 0;color:#fff;outline:none;border:0;background:#1579fb;-webkit-border-radius: 2px;-moz-border-radius: 2px;-ms-border-radius: 2px;-o-border-radius: 2px;border-radius: 2px;}
+        form .form-group .login-btn:hover {cursor: pointer;}
+    </style>
+</head>
+<body>
+    <div class="login_panel" id="signin">
+        <img src="login_img/logo.jpg" alt="logo"/>
+        <h3>用户体验监控平台</h3>
+        <form action="">
+            <p class="login-err-tip"><span>错误提示</span></p>
+            <div class="form-group first">
+                <input class="form-control" id="email" type="text" placeholder="您的邮箱" onkeydown="keyLogin();"/>
+            </div>
+            <div class="form-group">
+                <input class="form-control" id="pwd" type="password" placeholder="您的密码" onkeydown="keyLogin();"/>
+            </div>
+            <div class="form-group clearfix">
+                <label class="fl">
+                    <input class="checkbox-input" type="checkbox" checked="checked" value="1" id="remeber_me"/>
+                    <span></span>
+                    记住密码
+                </label>
+                <!--<a href="#" target="_blank" class="fr">忘记密码 ？</a>-->
+            </div>
+            <input type="hidden" name="referer" id="referer"/>
+            <div class="form-group">
+                <button class="login-btn" id="sigin_btn">登 录</button>
+            </div>
+        </form>
+    </div>
+    <script src="bower_components/jquery/jquery.min.js"></script>
+    <script>
+
+        function keyLogin(){
+            if (event.keyCode==13)  //回车键的键值为13
+                document.getElementById("sigin_btn").click(); //调用登录按钮的登录事件
+        }
+
+        $(function() {
+            $('#sigin_btn').click(function() {
+                var email = $("#email").val();
+                var pwd = $("#pwd").val();
+                if (!email) {
+                    $('.login-err-tip span').text('请填写邮箱');
+                    return false;
+                }
+                if (!pwd) {
+                    $('.login-err-tip span').text('请填写密码');
+                    return false;
+                }
+                var flag = $("#remeber_me").prop('checked');
+                if (flag) {
+                    var remeber_me = $("#remeber_me").val();
+                } else {
+                    var remeber_me = 0;
+                }
+                var referer = $("#referer").val();
+                var invite_s = $('#invite_s').val();
+                var url = "/jkb/account_dispose/signin/s";
+                var data = {
+                    'email': email,
+                    'pwd': pwd,
+                    'remeber_me': remeber_me,
+                    'referer': referer,
+                    'invite_s': invite_s
+                };
+
+                $.post(url, data,
+                        function(res) {
+                            switch (res.code) {
+                                case 'E00001':
+                                    $('.login-err-tip span').text(res.msg);
+                                    break;
+                                case 'E00000':
+                                    parent.location = res.msg;
+                                    break;
+                                default:
+                                    return false;
+                            }
+                        },
+                        "json"
+                );
+                return false;
+            });
+        });
+
+
+    </script>
+</body>
+</html>

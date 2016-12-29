@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>directive</title>
+</head>
+<body ng-app="app" ng-controller='MainCtrl'>
+    <input type='text' ng-model='color' placeholder='Enter a color'/>
+    <hello-world/>
+<script src="../bower_components/angular/angular.min.js"></script>
+<script>
+    var app = angular.module('app',[]);
+    app.controller('MainCtrl', function ($scope) {
+
+    })
+    app.directive('helloWorld',function(){
+        return {
+            restrict: 'AE',
+            replace: true,
+            template: '<p style="background-color:{{::color}}">hhhhh</p>',
+            link: function(scope,elem,attr){
+                scope.color = 'red'
+                elem.bind('click',function(){
+//                    elem.css('background-color','white');
+                    scope.$apply(function(){
+                        scope.color = "green";
+                    });
+                });
+                elem.bind('mouseover',function(){
+                    elem.css('cursor','pointer');
+                });
+            }
+        }
+    });
+</script>
+</body>
+</html>

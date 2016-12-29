@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        ul,li{list-style: none;}
+        ul{border: 1px solid #ccc;height: 100px;}
+    </style>
+</head>
+<body>
+    <p>未添加角色</p>
+    <ul id="rolelist" ondrop="dragDrop(event)" ondragover="dragOver(event)">
+        <li id="role1" draggable="true" ondragstart="dragStart(event)">项目经理</li>
+        <li id="role2" draggable="true" ondragstart="dragStart(event)">UI经理</li>
+        <li id="role3" draggable="true" ondragstart="dragStart(event)">技术经理</li>
+    </ul>
+    <p>已添加角色</p>
+    <ul id="rolebox" ondrop="dragDrop(event)" ondragover="dragOver(event)"></ul>
+    <script>
+        function dragStart(event){
+            event.dataTransfer.effectAllowed = "copyLink";
+            event.dataTransfer.setData("text/plain",event.target.id)
+        }
+        function dragEnter(event){
+            event.preventDefault();
+            event.dataTransfer.dropEffect="copy";
+        }
+        function dragOver(event){
+            event.preventDefault();
+        }
+        function dragDrop(item){
+            item.preventDefault();
+            var data = item.dataTransfer.getData("text/plain");
+            item.target.appendChild(document.getElementById(data))
+        }
+    </script>
+</body>
+</html>

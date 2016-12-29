@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../bower_components/angular/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+<div ng-controller="myContr1">
+    <input type="text" ng-model="number"/>
+    <button ng-click="square()">求平方</button>
+    result:{{result}}
+</div>
+<div ng-controller="myContr2">
+    <input type="text" ng-model="number"/>
+    <button ng-click="square()">求平方</button>
+    result:{{result}}
+</div>
+<script>
+    var myModule = angular.module('myApp',[]);
+    myModule.controller('myContr1', function ($scope,squareService) {
+        $scope.square = function () {
+            $scope.result = squareService.square($scope.number);
+        }
+    });
+    myModule.controller('myContr2', function ($scope,squareService) {
+        $scope.square = function () {
+            $scope.result = squareService.square($scope.number);
+        }
+    });
+    myModule.service('multiplyService', function () {
+        this.multiply = function (a,b) {
+            return a * b;
+        }
+    });
+    myModule.service('squareService', function (multiplyService) {
+        this.square = function (a) {
+            return multiplyService.multiply(a,a);
+        }
+    })
+    /*
+    *squareService服务调用了multiplyService服务里的方法，使用依赖注入，然后调用：服务名.方法()【multiplyService.multiply(a,a)】
+    *controller里调用服务的方法也是一样的
+    *mycontr1和mycontr2控制两个不同的作用域，所以更改上面的input值不会影响下面的，但是服务可以公用的
+    */
+</script>
+</body>
+</html>

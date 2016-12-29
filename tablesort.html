@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="bower_components/tablesort/themes/blue/style.css"/>
+    <script src="bower_components/jquery/jquery.min.js"></script>
+    <script src="bower_components/tablesort/jquery.tablesorter.min.js"></script>
+</head>
+<body>
+    <table class="tablesorter" id="tableSortList">
+    <thead>
+    <tr>
+        <th width="50%">名称</th>
+        <th width="25%" class="header">CPU</th>
+        <th width="25%" class="header">内存</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td class="text-ellipis">apache1 apache1apa</td>
+        <td>20%</td>
+        <td>1.24G</td>
+    </tr>
+    <tr>
+        <td class="text-ellipis">bpache1 apache1apa</td>
+        <td>77%</td>
+        <td>9.0G</td>
+    </tr>
+    <tr>
+        <td class="text-ellipis">dpache1 apache1apa</td>
+        <td>60%</td>
+        <td>400.0G</td>
+    </tr>
+    <tr>
+        <td class="text-ellipis">cpache1 apache1apa</td>
+        <td>80%</td>
+        <td>200.0G</td>
+    </tr>
+    <tr>
+        <td class="text-ellipis">fpache1 apache1apa</td>
+        <td>44%</td>
+        <td>13.4G</td>
+    </tr>
+    <tr>
+        <td class="text-ellipis">epache1 apache1apa</td>
+        <td>30%</td>
+        <td>17.4G</td>
+    </tr>
+    </tbody>
+</table>
+    <script>
+        $("#tableSortList").tablesorter({
+            headers:{
+                0:{sorter:false},//第一列不需要排序
+            },
+            sortList:[[2,1]]
+        });
+    </script>
+</body>
+</html>

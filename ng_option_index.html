@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="bower_components/angular/angular.min.js"></script>
+</head>
+<body ng-app="plunker" ng-controller="MainCtrl">
+
+    <select  ng-model="b" ng-options="l.field as getDesc(l) for l in t | index "></select>
+    <script>
+        var app = angular.module('plunker', []);
+
+        app.controller('MainCtrl', function($scope) {
+            $scope.t = [{
+                "field": "jw_companyTalent"
+            }, {
+                "field": "jw_reportgroup"
+            }];
+            $scope.getDesc = function(l) {
+                return l.order + "->" + l.field;
+            };
+        });
+        app.filter("index", [
+            function() {
+                return function(array) {
+                    return (array || []).map(function(item, index) {
+                        item.order = index + 1;
+                        return item;
+                    });
+                };
+            }
+        ]);
+    </script>
+</body>
+</html>

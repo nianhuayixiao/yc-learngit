@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<p>
+    大家好，我是{{name}};
+</p>
+<input type="text" ng-model="name"/>
+<!--直接引入angular框架即可-->
+<script src="bower_components/angular/angular.min.js"></script>
+<script>
+    var app = angular.module('myApp',[]);
+    //推断式注入依赖
+    app.controller('myController', function ($scope) {
+        $scope.name="Claire";
+    });
+    //显式注入依赖
+    /*app.controller('myController', ['$scope',function (a) {
+        a.name="Claire";
+    }]);*/
+</script>
+</body>
+</html>

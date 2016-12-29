@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            text-align: center;
+        }
+        #sourceObject,#aimObject{
+            float: left;
+            padding: 10px;
+            margin: 10px;
+        }
+        #sourceObject{
+            background-color: #DFD7D7;
+            width: 75px;
+            height: 70px;
+        }
+        #aimObject{
+            background-color: #A347FF;
+            width: 150px;
+            height: 150px;
+        }
+    </style>
+
+</head>
+<body>
+<div id="aimObject" ondrop="drop(event)" ondragover="dragOver(event)">回收站</div>
+<div id="sourceObject" draggable="true" ondragstart="drag(event)">待删除文件</div>
+<script>
+    function drag(event){
+        event.dataTransfer.setData("Text",event.target.id);
+    }
+    function dragOver(event){
+        event.preventDefault();
+    }
+    function drop(event){
+        event.preventDefault();
+        var data = event.dataTransfer.getData("Text");
+        event.target.appendChild(document.getElementById(data))
+    }
+</script>
+</body>
+</html>
