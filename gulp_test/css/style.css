@@ -1,0 +1,17 @@
+header{
+    height: 50px;
+    background: #000;
+}
+article{
+    font-size: 30px;
+}
+.a-png{
+    width:100px;
+    height: 100px;
+    background: url('../image/a.png') no-repeat;
+}
+.b-png{
+    width:100px;
+    height: 100px;
+    background: url('../image/b.png') no-repeat;
+}
